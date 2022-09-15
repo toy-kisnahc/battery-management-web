@@ -12,7 +12,6 @@ public class CreateBatteryResponse {
     private String batteryName;
     private String batteryVoltage;
     private BatteryType batteryType;
-    private int batteryQuantity;
     private int batteryPrice;
 
     @Builder
@@ -21,7 +20,6 @@ public class CreateBatteryResponse {
         this.batteryName = battery.getName();
         this.batteryVoltage = battery.getVoltage();
         this.batteryType = battery.getType();
-        this.batteryQuantity = battery.getQuantity();
         this.batteryPrice = battery.getPrice();
     }
 }

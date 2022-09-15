@@ -31,10 +31,9 @@ public class BatteryServiceImpl implements BatteryService {
     public ApiResponse<CreateBatteryResponse> create(CreateBatteryRequest request) {
 
         Battery battery = Battery.builder()
-                .name(request.getName())
+                .name(request.getBatteryName())
                 .voltage(request.getVoltage())
                 .type(request.getType())
-                .quantity(request.getQuantity())
                 .price(request.getPrice())
                 .build();
 
@@ -71,7 +70,7 @@ public class BatteryServiceImpl implements BatteryService {
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(BatteryNotFoundException::new);
 
-        battery.update(request);
+        battery.updatePrice(request);
 
         return new ApiResponse<>(SC_OK, new UpdateBatteryResponse(battery));
     }

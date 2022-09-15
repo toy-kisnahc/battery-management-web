@@ -21,10 +21,9 @@ class BatteryServiceImplTest {
         CreateBatteryRequest createBatteryRequest = getCreateBatteryRequest();
 
         Battery battery = Battery.builder()
-                .name(createBatteryRequest.getName())
+                .name(createBatteryRequest.getBatteryName())
                 .type(createBatteryRequest.getType())
                 .voltage(createBatteryRequest.getVoltage())
-                .quantity(createBatteryRequest.getQuantity())
                 .price(createBatteryRequest.getPrice())
                 .build();
 
@@ -36,6 +35,6 @@ class BatteryServiceImplTest {
     }
 
     private static CreateBatteryRequest getCreateBatteryRequest() {
-        return new CreateBatteryRequest("BatteryA", BatteryType.CELL, "1.5V", 1, 1000);
+        return new CreateBatteryRequest("BatteryA", BatteryType.CELL, "1.5V", 1000);
     }
 }

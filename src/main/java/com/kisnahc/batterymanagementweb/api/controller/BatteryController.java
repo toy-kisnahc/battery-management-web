@@ -18,7 +18,7 @@ public class BatteryController {
     private final BatteryService batteryService;
 
     @PostMapping("/api/batteries")
-    public ApiResponse<CreateBatteryResponse> save(@RequestBody @Valid CreateBatteryRequest request) {
+    public ApiResponse<CreateBatteryResponse> saveBattery(@RequestBody @Valid CreateBatteryRequest request) {
         return batteryService.create(request);
     }
 

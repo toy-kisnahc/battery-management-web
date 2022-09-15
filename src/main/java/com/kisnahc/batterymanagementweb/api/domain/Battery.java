@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -15,7 +16,7 @@ public class Battery extends BaseTimeEntity{
 
     @Column(name = "battery_id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -29,32 +30,22 @@ public class Battery extends BaseTimeEntity{
     private BatteryType type;
 
     @Column(nullable = false)
-    private int quantity;
-
-    @Column(nullable = false)
     private int price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buying_company_id")
-    private BuyingCompany buyingCompany;
 
 
     @Builder
-    public Battery(Long id, String name, String voltage, BatteryType type, int quantity, int price, BuyingCompany buyingCompany) {
+    public Battery(Long id, String name, String voltage, BatteryType type, int price) {
         this.id = id;
         this.name = name;
         this.voltage = voltage;
         this.type = type;
-        this.quantity = quantity;
         this.price = price;
-        this.buyingCompany = buyingCompany;
     }
 
     /*
         수정 메서드
      */
-    public void update(UpdateBatteryRequest request) {
-        this.quantity =request.getQuantity();
+    public void updatePrice(UpdateBatteryRequest request) {
         this.price = request.getPrice();
     }
 }

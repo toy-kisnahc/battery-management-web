@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 public class UpdateBatteryResponse {
 
     private Long id;
-    private int updatedQuantity;
     private int updatedPrice;
 
     public UpdateBatteryResponse(Battery battery) {
         this.id = battery.getId();
-        this.updatedQuantity = battery.getQuantity();
         this.updatedPrice = battery.getPrice();
     }
 }
