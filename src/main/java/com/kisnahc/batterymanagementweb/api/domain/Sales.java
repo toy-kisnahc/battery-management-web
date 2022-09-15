@@ -12,10 +12,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Sales extends BaseTimeEntity{
+public class Sales extends BaseTimeEntity {
 
     @Column(name = "sales_id")
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,5 +32,16 @@ public class Sales extends BaseTimeEntity{
     @Column(nullable = false)
     private int salesPrice;
 
+    //== 연관 관계 메서드 ==//
+
+
+    public void setCompany(Company company) {
+        this.company = company;
+        company.getSalesList().add(this);
+    }
+
+    public void addSalesBattery(SalesBattery salesBattery) {
+        salesBatteries.add(salesBattery);
+    }
 
 }

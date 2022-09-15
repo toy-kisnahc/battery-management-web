@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class SalesBattery extends BaseTimeEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sales_battery_id")
     private Long id;
 
