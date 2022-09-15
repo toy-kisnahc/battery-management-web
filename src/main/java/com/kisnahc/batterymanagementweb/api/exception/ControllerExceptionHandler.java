@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.exceprion;
+package com.kisnahc.batterymanagementweb.api.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

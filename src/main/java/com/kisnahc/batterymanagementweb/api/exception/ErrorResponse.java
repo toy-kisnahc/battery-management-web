@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.exceprion;
+package com.kisnahc.batterymanagementweb.api.exception;
 
 import lombok.Builder;
 import lombok.Getter;

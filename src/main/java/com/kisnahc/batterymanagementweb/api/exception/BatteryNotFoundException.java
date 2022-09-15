@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.exceprion;
+package com.kisnahc.batterymanagementweb.api.exception;
 
 public class BatteryNotFoundException extends GlobalException{
 

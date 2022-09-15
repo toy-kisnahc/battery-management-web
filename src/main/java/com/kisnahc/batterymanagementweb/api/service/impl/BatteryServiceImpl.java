@@ -4,7 +4,7 @@ import com.kisnahc.batterymanagementweb.api.domain.Battery;
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateBatteryRequest;
 import com.kisnahc.batterymanagementweb.api.dto.request.UpdateBatteryRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.*;
-import com.kisnahc.batterymanagementweb.api.exceprion.BatteryNotFoundException;
+import com.kisnahc.batterymanagementweb.api.exception.BatteryNotFoundException;
 import com.kisnahc.batterymanagementweb.api.repository.BatteryRepository;
 import com.kisnahc.batterymanagementweb.api.service.BatteryService;
 import lombok.RequiredArgsConstructor;
