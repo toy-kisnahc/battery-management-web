@@ -1,9 +1,8 @@
 package com.kisnahc.batterymanagementweb.api.controller;
 
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateCompanyRequest;
-import com.kisnahc.batterymanagementweb.api.dto.response.ApiResponse;
-import com.kisnahc.batterymanagementweb.api.dto.response.CompanyResponse;
-import com.kisnahc.batterymanagementweb.api.dto.response.CreateCompanyResponse;
+import com.kisnahc.batterymanagementweb.api.dto.request.UpdateCompanyRequest;
+import com.kisnahc.batterymanagementweb.api.dto.response.*;
 import com.kisnahc.batterymanagementweb.api.service.CompanyService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +30,15 @@ public class CompanyController {
     @GetMapping("/api/companies")
     public ApiResponse<List<CompanyResponse>> findAllByCompanies() {
         return companyService.getAll();
+    }
+
+    @PatchMapping("/api/companies/{companyId}")
+    public ApiResponse<UpdateCompanyResponse> updateCompany(@PathVariable Long companyId, @RequestBody @Valid UpdateCompanyRequest request) {
+        return companyService.update(companyId, request);
+    }
+
+    @DeleteMapping("/api/companies/{companyId}")
+    public ApiResponse<DeleteCompanyResponse> deleteCompany(@PathVariable Long companyId) {
+        return companyService.delete(companyId);
     }
 }

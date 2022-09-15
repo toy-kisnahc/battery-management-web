@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.repository;
+package com.kisnahc.batterymanagementweb.api.infrastructure.repository;
 
 import com.kisnahc.batterymanagementweb.api.domain.Company;
 import org.springframework.data.jpa.repository.JpaRepository;

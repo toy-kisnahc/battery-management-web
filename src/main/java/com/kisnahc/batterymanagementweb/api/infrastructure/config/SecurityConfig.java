@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.config;
+package com.kisnahc.batterymanagementweb.api.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -3,7 +3,7 @@ package com.kisnahc.batterymanagementweb.api.service;
 import com.kisnahc.batterymanagementweb.api.domain.Battery;
 import com.kisnahc.batterymanagementweb.api.domain.BatteryType;
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateBatteryRequest;
-import com.kisnahc.batterymanagementweb.api.repository.BatteryRepository;
+import com.kisnahc.batterymanagementweb.api.infrastructure.repository.BatteryRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

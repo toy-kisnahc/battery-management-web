@@ -19,7 +19,7 @@ public class Battery extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -45,7 +45,12 @@ public class Battery extends BaseTimeEntity{
     /*
         수정 메서드
      */
-    public void updatePrice(UpdateBatteryRequest request) {
+    public void updateCompany(UpdateBatteryRequest request) {
+        this.name = request.getBatteryName();
+        this.voltage = request.getVoltage();
+        this.type = request.getType();
         this.price = request.getPrice();
     }
+
+
 }

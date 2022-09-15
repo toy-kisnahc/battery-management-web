@@ -10,9 +10,13 @@ public class CompanyResponse {
 
     private Long companyId;
     private String companyName;
+    private String companyRegistrationNumber;
+    private String companyTelNumber;
 
     public CompanyResponse(Company company) {
         this.companyId = company.getId();
         this.companyName = company.getName();
+        this.companyRegistrationNumber = company.getCompanyRegistrationNumber();
+        this.companyTelNumber = company.getTelNumber();
     }
 }

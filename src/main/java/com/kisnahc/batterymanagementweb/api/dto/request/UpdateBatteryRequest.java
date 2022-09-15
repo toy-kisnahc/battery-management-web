@@ -1,15 +1,25 @@
 package com.kisnahc.batterymanagementweb.api.dto.request;
 
+import com.kisnahc.batterymanagementweb.api.domain.BatteryType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @Data
 public class UpdateBatteryRequest {
+
+    @NotBlank(message = "배터리명을 입력해 주세요.")
+    private String batteryName;
+
+    @Enumerated(EnumType.STRING)
+    private BatteryType type;
+
+    @NotBlank(message = "배터리 전압을 입력해 주세요.")
+    private String voltage;
 
     @NotNull(message = "베터리 단가를 입력해 주세요.")
     @Min(value = 10, message = "최소 단가는 10원 부터 입력할 수 있습니다.")

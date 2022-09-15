@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 public class UpdateCompanyResponse {
 
     private Long companyId;
-
     private String companyName;
     private String updatedCompanyRegistrationNumber;
     private String updateTelNumber;
 
     public UpdateCompanyResponse(Company company) {
         this.companyId = company.getId();
-        this.companyName = getCompanyName();
+        this.companyName = company.getName();
         this.updatedCompanyRegistrationNumber = company.getCompanyRegistrationNumber();
-        this.updateTelNumber = updateTelNumber = company.getTelNumber();
+        this.updateTelNumber  = company.getTelNumber();
     }
 }

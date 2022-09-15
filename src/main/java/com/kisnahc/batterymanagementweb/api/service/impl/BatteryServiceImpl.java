@@ -4,8 +4,9 @@ import com.kisnahc.batterymanagementweb.api.domain.Battery;
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateBatteryRequest;
 import com.kisnahc.batterymanagementweb.api.dto.request.UpdateBatteryRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.*;
+import com.kisnahc.batterymanagementweb.api.exception.BatteryDuplicateException;
 import com.kisnahc.batterymanagementweb.api.exception.BatteryNotFoundException;
-import com.kisnahc.batterymanagementweb.api.repository.BatteryRepository;
+import com.kisnahc.batterymanagementweb.api.infrastructure.repository.BatteryRepository;
 import com.kisnahc.batterymanagementweb.api.service.BatteryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,8 @@ public class BatteryServiceImpl implements BatteryService {
                 .type(request.getType())
                 .price(request.getPrice())
                 .build();
+
+        duplicateValidate(battery.getName());
 
         Battery saveBattery = batteryRepository.save(battery);
 
@@ -70,7 +73,9 @@ public class BatteryServiceImpl implements BatteryService {
         Battery battery = batteryRepository.findById(batteryId)
                 .orElseThrow(BatteryNotFoundException::new);
 
-        battery.updatePrice(request);
+        duplicateValidate(request.getBatteryName());
+
+        battery.updateCompany(request);
 
         return new ApiResponse<>(SC_OK, new UpdateBatteryResponse(battery));
     }
@@ -84,5 +89,11 @@ public class BatteryServiceImpl implements BatteryService {
         batteryRepository.delete(battery);
 
         return new ApiResponse<>(SC_OK, new DeleteBatteryResponse(battery));
+    }
+
+    private void duplicateValidate(String name) {
+        if (batteryRepository.existsByName(name)) {
+            throw new BatteryDuplicateException("이미 등록된 제품명 입니다.");
+        }
     }
 }

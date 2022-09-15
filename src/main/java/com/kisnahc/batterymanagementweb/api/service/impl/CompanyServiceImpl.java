@@ -6,7 +6,7 @@ import com.kisnahc.batterymanagementweb.api.dto.request.UpdateCompanyRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.*;
 import com.kisnahc.batterymanagementweb.api.exception.CompanyDuplicateException;
 import com.kisnahc.batterymanagementweb.api.exception.CompanyNotFoundException;
-import com.kisnahc.batterymanagementweb.api.repository.CompanyRepository;
+import com.kisnahc.batterymanagementweb.api.infrastructure.repository.CompanyRepository;
 import com.kisnahc.batterymanagementweb.api.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .telNumber(request.getTelNumber())
                 .build();
 
-        validate(company);
+        duplicateValidate(company.getCompanyRegistrationNumber(), company.getTelNumber());
 
         Company saveCompany = companyRepository.save(company);
 
@@ -58,31 +58,33 @@ public class CompanyServiceImpl implements CompanyService {
         return new ApiResponse<>(SC_OK, companyResponses.size(), companyResponses);
     }
 
+    @Transactional
     @Override
-    public ApiResponse<?> update(Long companyId, UpdateCompanyRequest request) {
+    public ApiResponse<UpdateCompanyResponse> update(Long companyId, UpdateCompanyRequest request) {
         Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
 
-        validate(company);
+        duplicateValidate(request.getCompanyRegistrationNumber(), request.getTelNumber());
 
         company.updateCompany(request);
 
         return new ApiResponse<>(SC_OK, new UpdateCompanyResponse(company));
     }
 
+    @Transactional
     @Override
-    public ApiResponse<?> delete(Long companyId) {
+    public ApiResponse<DeleteCompanyResponse> delete(Long companyId) {
         Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
 
         companyRepository.delete(company);
 
-        return new ApiResponse<>(SC_OK, new DeleteCompanyResponse());
+        return new ApiResponse<>(SC_OK, new DeleteCompanyResponse(company));
     }
 
-    private void validate(Company company) {
-        if (companyRepository.existsByCompanyRegistrationNumber(company.getCompanyRegistrationNumber())) {
+    private void duplicateValidate(String companyRegistrationNumber, String telNumber) {
+        if (companyRepository.existsByCompanyRegistrationNumber(companyRegistrationNumber)) {
             throw new CompanyDuplicateException("이미 등록된 사업자등록번호 입니다.");
         }
-        if (companyRepository.existsByTelNumber(company.getTelNumber())) {
+        if (companyRepository.existsByTelNumber(telNumber)) {
             throw new CompanyDuplicateException("이미 등록된 전화번호 입니다.");
         }
     }
