@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.dto.response;
+package com.kisnahc.batterymanagementweb.api.dto.response.update;
 
 import com.kisnahc.batterymanagementweb.api.domain.Company;
 import lombok.Data;

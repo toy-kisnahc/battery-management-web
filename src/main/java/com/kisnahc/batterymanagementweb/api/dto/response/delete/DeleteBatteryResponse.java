@@ -1,4 +1,4 @@
-package com.kisnahc.batterymanagementweb.api.dto.response;
+package com.kisnahc.batterymanagementweb.api.dto.response.delete;
 
 import com.kisnahc.batterymanagementweb.api.domain.Battery;
 import lombok.Data;

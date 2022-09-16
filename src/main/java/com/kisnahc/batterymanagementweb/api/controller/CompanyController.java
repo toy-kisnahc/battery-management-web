@@ -3,8 +3,10 @@ package com.kisnahc.batterymanagementweb.api.controller;
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateCompanyRequest;
 import com.kisnahc.batterymanagementweb.api.dto.request.UpdateCompanyRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.*;
+import com.kisnahc.batterymanagementweb.api.dto.response.create.CreateCompanyResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.delete.DeleteCompanyResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.update.UpdateCompanyResponse;
 import com.kisnahc.batterymanagementweb.api.service.CompanyService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

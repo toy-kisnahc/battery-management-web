@@ -4,6 +4,9 @@ import com.kisnahc.batterymanagementweb.api.domain.Company;
 import com.kisnahc.batterymanagementweb.api.dto.request.CreateCompanyRequest;
 import com.kisnahc.batterymanagementweb.api.dto.request.UpdateCompanyRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.*;
+import com.kisnahc.batterymanagementweb.api.dto.response.create.CreateCompanyResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.delete.DeleteCompanyResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.update.UpdateCompanyResponse;
 import com.kisnahc.batterymanagementweb.api.exception.CompanyDuplicateException;
 import com.kisnahc.batterymanagementweb.api.exception.CompanyNotFoundException;
 import com.kisnahc.batterymanagementweb.api.infrastructure.repository.CompanyRepository;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static javax.servlet.http.HttpServletResponse.SC_CREATED;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 @Transactional(readOnly = true)
@@ -38,7 +42,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Company saveCompany = companyRepository.save(company);
 
-        return new ApiResponse<>(SC_OK, new CreateCompanyResponse(saveCompany));
+        return new ApiResponse<>(SC_CREATED, new CreateCompanyResponse(saveCompany));
     }
 
     @Override
