@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Locale;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -43,7 +44,7 @@ public class Battery extends BaseTimeEntity{
     public Battery(Long id, String name, String voltage, BatteryType type, Manufacturer manufacturer, int price) {
         this.id = id;
         this.name = name;
-        this.voltage = voltage;
+        this.voltage = voltage.toUpperCase();
         this.type = type;
         this.manufacturer = manufacturer;
         this.price = price;
@@ -54,7 +55,7 @@ public class Battery extends BaseTimeEntity{
      */
     public void updateCompany(UpdateBatteryRequest request) {
         this.name = request.getBatteryName();
-        this.voltage = request.getVoltage();
+        this.voltage = request.getVoltage().toUpperCase();
         this.type = request.getType();
         this.manufacturer = request.getManufacturer();
         this.price = request.getPrice();

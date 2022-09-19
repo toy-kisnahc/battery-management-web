@@ -50,7 +50,7 @@ public class SalesServiceImpl implements SalesService {
         OrderBattery orderBattery = OrderBattery.createOrder(battery, battery.getPrice(), request.getCount());
 
         // 매출 등록.
-        Sales sales = Sales.createSales(company, orderBattery);
+        Sales sales = Sales.createSales(company, request, orderBattery);
 
         Sales saveSales = salesRepository.save(sales);
 

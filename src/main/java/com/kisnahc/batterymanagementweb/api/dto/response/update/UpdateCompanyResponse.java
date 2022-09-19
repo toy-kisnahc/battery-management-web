@@ -11,12 +11,14 @@ public class UpdateCompanyResponse {
 
     private Long companyId;
     private String companyName;
+    private String companyOwner;
     private String updatedCompanyRegistrationNumber;
     private String updateTelNumber;
 
     public UpdateCompanyResponse(Company company) {
         this.companyId = company.getId();
         this.companyName = company.getName();
+        this.companyOwner = company.getOwner();
         this.updatedCompanyRegistrationNumber = company.getCompanyRegistrationNumber();
         this.updateTelNumber  = company.getTelNumber();
     }

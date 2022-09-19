@@ -23,6 +23,8 @@ public class Company extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String owner;
 
     @Column(nullable = false, unique = true)
     private String companyRegistrationNumber;
@@ -35,8 +37,9 @@ public class Company extends BaseTimeEntity {
     private List<Sales> salesList = new ArrayList<>();
 
     @Builder
-    public Company(String name, String companyRegistrationNumber, String telNumber, List<Sales> salesList) {
+    public Company(String name, String owner, String companyRegistrationNumber, String telNumber, List<Sales> salesList) {
         this.name = name;
+        this.owner = owner;
         this.companyRegistrationNumber = companyRegistrationNumber;
         this.telNumber = telNumber;
         this.salesList = salesList;
@@ -44,6 +47,7 @@ public class Company extends BaseTimeEntity {
 
     public void updateCompany(UpdateCompanyRequest request) {
         this.name = request.getCompanyName();
+        this.owner =
         this.companyRegistrationNumber = request.getCompanyRegistrationNumber();
         this.telNumber = request.getTelNumber();
     }

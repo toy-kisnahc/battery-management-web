@@ -34,6 +34,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Company company = Company.builder()
                 .name(request.getCompanyName())
+                .owner(request.getCompanyOwner())
                 .companyRegistrationNumber(request.getCompanyRegistrationNumber())
                 .telNumber(request.getTelNumber())
                 .build();

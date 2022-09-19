@@ -34,7 +34,7 @@ public class BatteryController {
         return batteryService.getAll();
     }
 
-    @PutMapping("/api/batteries/{batteryId}")
+    @PatchMapping("/api/batteries/{batteryId}")
     public ApiResponse<UpdateBatteryResponse> updateBattery(@PathVariable Long batteryId, @RequestBody @Valid UpdateBatteryRequest request) {
         return batteryService.update(batteryId, request);
     }

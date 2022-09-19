@@ -1,14 +1,15 @@
 package com.kisnahc.batterymanagementweb.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kisnahc.batterymanagementweb.api.dto.request.CreateSalesRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,15 +30,17 @@ public class Sales extends BaseTimeEntity {
     @OneToMany(mappedBy = "sales", cascade = CascadeType.ALL)
     private List<OrderBattery> orderBatteries = new ArrayList<>();
 
-    // TODO
-    private LocalDateTime salesDate;
+    @Column(nullable = false)
+    private LocalDate salesDate;
+
 
     /*
-            매출 생성 메서드.
+            매출 생성.
          */
-    public static Sales createSales(Company company, OrderBattery... orderBatteries) {
+    public static Sales createSales(Company company, CreateSalesRequest request, OrderBattery... orderBatteries) {
         Sales sales = new Sales();
         sales.setCompany(company);
+        sales.salesDate = request.getSalesDate();
 
         for (OrderBattery orderBattery : orderBatteries) {
             sales.addOrderBattery(orderBattery);
@@ -46,12 +49,8 @@ public class Sales extends BaseTimeEntity {
     }
 
     /*
-        매출 수정 메서드.
+        매출 가격 조회.
      */
-
-    /*
-            매출 가격 조회 메서드.
-         */
     public int getTotalPrice() {
         return orderBatteries.stream()
                 .mapToInt(OrderBattery::getTotalPrice)
