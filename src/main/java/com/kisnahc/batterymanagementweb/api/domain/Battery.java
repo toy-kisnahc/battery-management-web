@@ -29,16 +29,23 @@ public class Battery extends BaseTimeEntity{
     @Column(nullable = false)
     private BatteryType type;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Manufacturer manufacturer;
+
     @Column(nullable = false)
     private int price;
 
+    //TODO multipart 기능 구현.
+
 
     @Builder
-    public Battery(Long id, String name, String voltage, BatteryType type, int price) {
+    public Battery(Long id, String name, String voltage, BatteryType type, Manufacturer manufacturer, int price) {
         this.id = id;
         this.name = name;
         this.voltage = voltage;
         this.type = type;
+        this.manufacturer = manufacturer;
         this.price = price;
     }
 
@@ -49,6 +56,7 @@ public class Battery extends BaseTimeEntity{
         this.name = request.getBatteryName();
         this.voltage = request.getVoltage();
         this.type = request.getType();
+        this.manufacturer = request.getManufacturer();
         this.price = request.getPrice();
     }
 

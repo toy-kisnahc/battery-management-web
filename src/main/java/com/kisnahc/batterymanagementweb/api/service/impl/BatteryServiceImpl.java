@@ -38,6 +38,7 @@ public class BatteryServiceImpl implements BatteryService {
                 .name(request.getBatteryName())
                 .voltage(request.getVoltage())
                 .type(request.getType())
+                .manufacturer(request.getManufacturer())
                 .price(request.getPrice())
                 .build();
 

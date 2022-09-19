@@ -4,15 +4,20 @@ import com.kisnahc.batterymanagementweb.api.domain.Battery;
 import com.kisnahc.batterymanagementweb.api.domain.Company;
 import com.kisnahc.batterymanagementweb.api.domain.OrderBattery;
 import com.kisnahc.batterymanagementweb.api.domain.Sales;
+import com.kisnahc.batterymanagementweb.api.dto.request.CreateSalesRequest;
+import com.kisnahc.batterymanagementweb.api.dto.request.UpdateOrderBatteryRequest;
 import com.kisnahc.batterymanagementweb.api.dto.response.ApiResponse;
-import com.kisnahc.batterymanagementweb.api.dto.response.DeleteSalesResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.delete.DeleteSalesResponse;
+import com.kisnahc.batterymanagementweb.api.dto.response.update.UpdateSalesResponse;
 import com.kisnahc.batterymanagementweb.api.dto.response.create.CreateSalesResponse;
 import com.kisnahc.batterymanagementweb.api.dto.response.SalesResponse;
 import com.kisnahc.batterymanagementweb.api.exception.BatteryNotFoundException;
 import com.kisnahc.batterymanagementweb.api.exception.CompanyNotFoundException;
+import com.kisnahc.batterymanagementweb.api.exception.OrderBatteryNotFoundException;
 import com.kisnahc.batterymanagementweb.api.exception.SalesNotFoundException;
 import com.kisnahc.batterymanagementweb.api.infrastructure.repository.BatteryRepository;
 import com.kisnahc.batterymanagementweb.api.infrastructure.repository.CompanyRepository;
+import com.kisnahc.batterymanagementweb.api.infrastructure.repository.OrderBatteryRepository;
 import com.kisnahc.batterymanagementweb.api.infrastructure.repository.SalesRepository;
 import com.kisnahc.batterymanagementweb.api.service.SalesService;
 import lombok.RequiredArgsConstructor;
@@ -33,15 +38,16 @@ public class SalesServiceImpl implements SalesService {
     private final SalesRepository salesRepository;
     private final CompanyRepository companyRepository;
     private final BatteryRepository batteryRepository;
+    private final OrderBatteryRepository orderBatteryRepository;
 
     @Transactional
     @Override
-    public ApiResponse<CreateSalesResponse> create(Long companyId, Long batteryId, int count) {
-        Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
-        Battery battery = batteryRepository.findById(batteryId).orElseThrow(BatteryNotFoundException::new);
+    public ApiResponse<CreateSalesResponse> create(CreateSalesRequest request) {
+        Company company = companyRepository.findById(request.getCompanyId()).orElseThrow(CompanyNotFoundException::new);
+        Battery battery = batteryRepository.findById(request.getBatteryId()).orElseThrow(BatteryNotFoundException::new);
 
         // 주문 생성.
-        OrderBattery orderBattery = OrderBattery.createOrder(battery, battery.getPrice(), count);
+        OrderBattery orderBattery = OrderBattery.createOrder(battery, battery.getPrice(), request.getCount());
 
         // 매출 등록.
         Sales sales = Sales.createSales(company, orderBattery);
@@ -55,9 +61,6 @@ public class SalesServiceImpl implements SalesService {
     @Override
     public ApiResponse<SalesResponse> get(Long salesId) {
         Sales sales = salesRepository.findById(salesId).orElseThrow(SalesNotFoundException::new);
-
-        //TODO
-//        sales.updateOrderBattery();
         return new ApiResponse<>(SC_OK, new SalesResponse(sales));
     }
 
@@ -72,10 +75,16 @@ public class SalesServiceImpl implements SalesService {
         return new ApiResponse<>(SC_OK, salesResponses.size(), salesResponses);
     }
 
+    /*
+        주문 수량 수정.
+     */
     @Transactional
     @Override
-    public ApiResponse<?> update(Long salesId) {
-        return null;
+    public ApiResponse<UpdateSalesResponse> update(Long salesId, UpdateOrderBatteryRequest request) {
+        OrderBattery orderBattery = orderBatteryRepository.findById(request.getOrderBatteryId()).orElseThrow(OrderBatteryNotFoundException::new);
+        Sales sales = salesRepository.findById(salesId).orElseThrow(OrderBatteryNotFoundException::new);
+        orderBattery.updateOrder(request);
+        return new ApiResponse<>(SC_OK, new UpdateSalesResponse(sales, request));
     }
 
     @Transactional

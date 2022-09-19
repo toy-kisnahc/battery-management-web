@@ -1,5 +1,7 @@
-package com.kisnahc.batterymanagementweb.api.exception;
+package com.kisnahc.batterymanagementweb.api.exception.handler;
 
+import com.kisnahc.batterymanagementweb.api.exception.ErrorResponse;
+import com.kisnahc.batterymanagementweb.api.exception.GlobalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

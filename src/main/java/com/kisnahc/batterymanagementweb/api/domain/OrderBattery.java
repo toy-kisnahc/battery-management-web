@@ -1,6 +1,7 @@
 package com.kisnahc.batterymanagementweb.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kisnahc.batterymanagementweb.api.dto.request.UpdateOrderBatteryRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,7 +51,7 @@ public class OrderBattery extends BaseTimeEntity {
     }
 
     /*
-        주문 생성 메서드.
+        주문 생성.
      */
     public static OrderBattery createOrder(Battery battery, int orderPrice, int orderCount) {
         return OrderBattery.builder()
@@ -65,5 +66,12 @@ public class OrderBattery extends BaseTimeEntity {
      */
     public int getTotalPrice() {
         return getOrderCount() * getOrderPrice();
+    }
+
+    /*
+        주문 수정.
+     */
+    public void updateOrder(UpdateOrderBatteryRequest request) {
+        this.orderCount = request.getOrderCount();
     }
 }

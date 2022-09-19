@@ -1,6 +1,7 @@
 package com.kisnahc.batterymanagementweb.api.dto.request;
 
 import com.kisnahc.batterymanagementweb.api.domain.BatteryType;
+import com.kisnahc.batterymanagementweb.api.domain.Manufacturer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,9 @@ public class UpdateBatteryRequest {
 
     @Enumerated(EnumType.STRING)
     private BatteryType type;
+
+    @Enumerated(EnumType.STRING)
+    private Manufacturer manufacturer;
 
     @NotBlank(message = "배터리 전압을 입력해 주세요.")
     private String voltage;
