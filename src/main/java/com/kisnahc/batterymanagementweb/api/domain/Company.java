@@ -47,8 +47,7 @@ public class Company extends BaseTimeEntity {
 
     public void updateCompany(UpdateCompanyRequest request) {
         this.name = request.getCompanyName();
-        this.owner =
-        this.companyRegistrationNumber = request.getCompanyRegistrationNumber();
+        this.owner = request.getCompanyName();
         this.telNumber = request.getTelNumber();
     }
 }

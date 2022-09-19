@@ -40,6 +40,11 @@ public class SalesServiceImpl implements SalesService {
     private final BatteryRepository batteryRepository;
     private final OrderBatteryRepository orderBatteryRepository;
 
+    /**
+     * 매출 등록.
+     * @param request
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<CreateSalesResponse> create(CreateSalesRequest request) {
@@ -58,12 +63,21 @@ public class SalesServiceImpl implements SalesService {
 
     }
 
+    /**
+     * 매출 조회.
+     * @param salesId
+     * @return
+     */
     @Override
     public ApiResponse<SalesResponse> get(Long salesId) {
         Sales sales = salesRepository.findById(salesId).orElseThrow(SalesNotFoundException::new);
         return new ApiResponse<>(SC_OK, new SalesResponse(sales));
     }
 
+    /**
+     * 매출 전체 조회.
+     * @return
+     */
     @Override
     public ApiResponse<List<SalesResponse>> getAll() {
         List<Sales> salesList = salesRepository.findAll();
@@ -75,8 +89,11 @@ public class SalesServiceImpl implements SalesService {
         return new ApiResponse<>(SC_OK, salesResponses.size(), salesResponses);
     }
 
-    /*
-        주문 수량 수정.
+    /**
+     * 매출 수정.
+     * @param salesId
+     * @param request
+     * @return
      */
     @Transactional
     @Override
@@ -87,6 +104,11 @@ public class SalesServiceImpl implements SalesService {
         return new ApiResponse<>(SC_OK, new UpdateSalesResponse(sales));
     }
 
+    /**
+     * 매출 삭제.
+     * @param salesId
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<DeleteSalesResponse> delete(Long salesId) {

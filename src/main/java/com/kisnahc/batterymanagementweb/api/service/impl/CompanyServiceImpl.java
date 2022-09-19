@@ -28,6 +28,11 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
 
+    /**
+     * 매출처 등록.
+     * @param request
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<CreateCompanyResponse> create(CreateCompanyRequest request) {
@@ -46,12 +51,21 @@ public class CompanyServiceImpl implements CompanyService {
         return new ApiResponse<>(SC_CREATED, new CreateCompanyResponse(saveCompany));
     }
 
+    /**
+     * 매출처 조회.
+     * @param companyId
+     * @return
+     */
     @Override
     public ApiResponse<CompanyResponse> get(Long companyId) {
         Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
         return new ApiResponse<>(SC_OK, new CompanyResponse(company));
     }
 
+    /**
+     * 매출처 전체 조회.
+     * @return
+     */
     @Override
     public ApiResponse<List<CompanyResponse>> getAll() {
         List<Company> companies = companyRepository.findAll();
@@ -63,18 +77,27 @@ public class CompanyServiceImpl implements CompanyService {
         return new ApiResponse<>(SC_OK, companyResponses.size(), companyResponses);
     }
 
+    /**
+     * 매출처 수정.
+     * @param companyId
+     * @param request
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<UpdateCompanyResponse> update(Long companyId, UpdateCompanyRequest request) {
         Company company = companyRepository.findById(companyId).orElseThrow(CompanyNotFoundException::new);
-
-        duplicateValidate(request.getCompanyRegistrationNumber(), request.getTelNumber());
 
         company.updateCompany(request);
 
         return new ApiResponse<>(SC_OK, new UpdateCompanyResponse(company));
     }
 
+    /**
+     * 매출처 삭제.
+     * @param companyId
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<DeleteCompanyResponse> delete(Long companyId) {

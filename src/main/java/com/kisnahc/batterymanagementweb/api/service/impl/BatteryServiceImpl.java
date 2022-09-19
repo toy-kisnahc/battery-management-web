@@ -30,6 +30,11 @@ public class BatteryServiceImpl implements BatteryService {
 
     private final BatteryRepository batteryRepository;
 
+    /**
+     * 배터리 등록.
+     * @param request
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<CreateBatteryResponse> create(CreateBatteryRequest request) {
@@ -49,6 +54,11 @@ public class BatteryServiceImpl implements BatteryService {
         return new ApiResponse<>(SC_CREATED, new CreateBatteryResponse(saveBattery));
     }
 
+    /**
+     * 배터리 조회.
+     * @param batteryId
+     * @return
+     */
     @Override
     public ApiResponse<BatteryResponse> get(Long batteryId) {
 
@@ -58,6 +68,10 @@ public class BatteryServiceImpl implements BatteryService {
         return new ApiResponse<>(SC_OK, new BatteryResponse(battery));
     }
 
+    /**
+     * 배터리 전체 조회.
+     * @return
+     */
     @Override
     public ApiResponse<List<BatteryResponse>> getAll() {
 
@@ -70,6 +84,12 @@ public class BatteryServiceImpl implements BatteryService {
         return new ApiResponse<>(SC_OK, batteryResponses.size() , batteryResponses);
     }
 
+    /**
+     * 배터리 수정.
+     * @param batteryId
+     * @param request
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<UpdateBatteryResponse> update(Long batteryId, UpdateBatteryRequest request) {
@@ -84,6 +104,11 @@ public class BatteryServiceImpl implements BatteryService {
         return new ApiResponse<>(SC_OK, new UpdateBatteryResponse(battery));
     }
 
+    /**
+     * 배터리 삭제.
+     * @param batteryId
+     * @return
+     */
     @Transactional
     @Override
     public ApiResponse<DeleteBatteryResponse> delete(Long batteryId) {
