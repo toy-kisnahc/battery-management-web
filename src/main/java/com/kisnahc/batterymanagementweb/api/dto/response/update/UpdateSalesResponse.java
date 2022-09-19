@@ -18,10 +18,12 @@ public class UpdateSalesResponse {
     private List<UpdateOrderBatteryResponse> orderBatteries;
     private int salesPrice;
 
-    public UpdateSalesResponse(Sales sales, UpdateOrderBatteryRequest request) {
+    public UpdateSalesResponse(Sales sales) {
         this.salesId = sales.getId();
         this.companyName = sales.getCompany().getName();
-        this.orderBatteries = sales.getOrderBatteries().stream().map(UpdateOrderBatteryResponse::new).collect(Collectors.toList());
+        this.orderBatteries = sales.getOrderBatteries().stream()
+                .map(UpdateOrderBatteryResponse::new)
+                .collect(Collectors.toList());
         this.salesPrice = sales.getTotalPrice();
     }
 }

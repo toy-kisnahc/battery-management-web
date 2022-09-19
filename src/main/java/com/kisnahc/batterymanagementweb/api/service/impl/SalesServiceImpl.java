@@ -84,7 +84,7 @@ public class SalesServiceImpl implements SalesService {
         OrderBattery orderBattery = orderBatteryRepository.findById(request.getOrderBatteryId()).orElseThrow(OrderBatteryNotFoundException::new);
         Sales sales = salesRepository.findById(salesId).orElseThrow(OrderBatteryNotFoundException::new);
         orderBattery.updateOrder(request);
-        return new ApiResponse<>(SC_OK, new UpdateSalesResponse(sales, request));
+        return new ApiResponse<>(SC_OK, new UpdateSalesResponse(sales));
     }
 
     @Transactional

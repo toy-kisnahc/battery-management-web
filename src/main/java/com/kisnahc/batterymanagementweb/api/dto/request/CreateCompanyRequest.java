@@ -2,7 +2,6 @@ package com.kisnahc.batterymanagementweb.api.dto.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -28,9 +27,4 @@ public class CreateCompanyRequest {
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식을 맞춰서 입력해 주세요.")
     private String telNumber;
 
-    public CreateCompanyRequest(String companyName, String companyRegistrationNumber, String telNumber) {
-        this.companyName = companyName;
-        this.companyRegistrationNumber = companyRegistrationNumber;
-        this.telNumber = telNumber;
-    }
 }
